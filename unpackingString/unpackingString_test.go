@@ -2,7 +2,8 @@ package unpackingstring_test
 
 import (
 	"testing"
-	"github.com/vvetta/unpacking-string/unpackingString"
+
+	unpackingstring "github.com/vvetta/unpacking-string/unpackingString"
 )
 
 func TestUnpackWoEscape(t *testing.T) {
@@ -10,7 +11,7 @@ func TestUnpackWoEscape(t *testing.T) {
 	results := []string{"aaaabccddddde", "abcd", "", "", "a", "a", "aa"}
 
 	for i, testString := range testStrings {
-		result, _ := unpackingstring.Unpack(testString)		
+		result, _ := unpackingstring.Unpack(testString)
 		if results[i] != result {
 			t.Errorf("test case: %s error; correct(%s) != result(%s)", testStrings[i], results[i], result)
 		}

@@ -9,7 +9,9 @@ var (
 )
 
 func Unpack(s string) (string, error) {
-	if s == "" {return "", nil}	
+	if s == "" {
+		return "", nil
+	}
 
 	sRunes := []rune(s)
 	result := []rune{}
@@ -22,7 +24,7 @@ func Unpack(s string) (string, error) {
 		isCharEsc := char == 92
 		isLastCharInt := lastChar >= 48 && lastChar <= 57
 		isLastCharEsc := lastChar == 92
-		isLastCharEscInt := lastEscCharIdx == i - 1
+		isLastCharEscInt := lastEscCharIdx == i-1
 
 		if isCharEsc {
 			lastChar = char
@@ -32,12 +34,12 @@ func Unpack(s string) (string, error) {
 		if isLastCharEsc && isCharInt {
 			result = append(result, char)
 			lastEscCharIdx = i
-			lastChar = char	
+			lastChar = char
 			continue
 		}
 
 		if !isCharInt && !isLastCharEsc && !isLastCharEscInt && !isCharEsc {
-			// Добавляем простой символ, не число.	
+			// Добавляем простой символ, не число.
 			result = append(result, char)
 		}
 
@@ -56,17 +58,17 @@ func Unpack(s string) (string, error) {
 	return string(result), nil
 }
 
-func multChar(char rune, number rune) []rune {	
-	var num int	
-	
+func multChar(char rune, number rune) []rune {
+	var num int
+
 	switch number {
 	case 48:
 		num = 0
 	case 49:
 		num = 1
 	case 50:
-		num = 2	
-	case 51:	
+		num = 2
+	case 51:
 		num = 3
 	case 52:
 		num = 4
@@ -82,13 +84,14 @@ func multChar(char rune, number rune) []rune {
 		num = 9
 	}
 
-	if num == 0 {return []rune{}}
+	if num == 0 {
+		return []rune{}
+	}
 
 	result := []rune{}
 	for range num - 1 {
-		result = append(result, char)	
+		result = append(result, char)
 	}
 
 	return result
 }
-
