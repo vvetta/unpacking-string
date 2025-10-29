@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	ErrStringStartWNum = errors.New("The string must not start with a number!")
+	ErrTwoNumInRow = errors.New("Two num in row!")
 )
 
 func Unpack(s string) (string, error) {
@@ -25,6 +25,10 @@ func Unpack(s string) (string, error) {
 		isLastCharInt := lastChar >= 48 && lastChar <= 57
 		isLastCharEsc := lastChar == 92
 		isLastCharEscInt := lastEscCharIdx == i-1
+
+		if isCharInt && !isLastCharEscInt && isLastCharInt {
+			return "", ErrTwoNumInRow
+		}
 
 		if isCharEsc {
 			lastChar = char
@@ -52,7 +56,7 @@ func Unpack(s string) (string, error) {
 	}
 
 	if len(result) == 0 {
-		return "", ErrStringStartWNum
+		return "", ErrTwoNumInRow
 	}
 
 	return string(result), nil
